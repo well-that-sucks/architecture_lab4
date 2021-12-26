@@ -1,0 +1,66 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Item {
+    item_id: ID!
+    item_name: String!
+    description: String!
+    quantity: Int!
+    price: Float!
+    supplier_id: Int!
+}
+
+type Customer {
+    customer_id: ID!
+    full_name: String!
+    phone: String!
+    email: String!
+    age: Int!
+    passport_id: Int!
+    account_id: Int!
+}
+
+type Order {
+    order_id: ID!
+    customer_id: Int!
+    item_id: Int!
+    quantity: Int!
+    price: Float!
+    is_confirmed: Int!
+    dmethod_id: Int!
+    address: String!
+}
+
+type ItemsResult {
+    success: Boolean!
+    errors: [String]
+    item: [Item]
+}
+
+type CustomersResult {
+    success: Boolean!
+    errors: [String]
+    customer: [Customer]
+}
+
+type OrdersResult {
+    success: Boolean!
+    errors: [String]
+    order: [Order]
+}
+
+type Query {
+    getItems(item_name: String, min_quantity: Int, supplier_id: Int): ItemsResult!
+    getCustomers: CustomersResult!
+    getOrders: OrdersResult!
+}
+
+type Mutation {
+    insertCustomer(customer_id: Int!, full_name: String!, phone: String!, email: String!, age: Int!, passport_id: Int!, account_id: Int!): CustomersResult!
+    insertOrder(order_id: Int!, customer_id: Int!, item_id: Int!, quantity: Int!, price: Float!, is_confirmed: Int!, dmethod_id: Int!, address: String!): OrdersResult!
+    insertItem(item_id: Int!, item_name: String!, description: String!, quantity: Int!, price: Float!, supplier_id: Int!): ItemsResult!
+    updateItem(item_id: Int!, item_name: String!, description: String!, quantity: Int!, price: Float!, supplier_id: Int!): ItemsResult!
+    deleteItem(item_id: Int!): ItemsResult!
+}
